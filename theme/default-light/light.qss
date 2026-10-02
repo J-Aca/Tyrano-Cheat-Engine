@@ -1,1 +1,6 @@
-
+QMainWindow, QWidget { background: #f3f6fb; color: #172033; font-family: "Segoe UI", sans-serif; font-size: 10pt; }
+QMenuBar, QMenu { background: #ffffff; color: #172033; } QMenu::item:selected, QMenuBar::item:selected { background: #dbeafe; }
+QTabWidget::pane { border: 1px solid #cbd5e1; border-radius: 8px; top: -1px; } QTabBar::tab { background: #e2e8f0; padding: 9px 16px; margin: 3px; border-radius: 6px; } QTabBar::tab:selected { background: #2563eb; color: white; }
+QPushButton { background: #2563eb; color: white; padding: 8px 13px; border: 0; border-radius: 6px; } QPushButton:hover { background: #1d4ed8; } QPushButton:disabled { background: #cbd5e1; color: #64748b; }
+QLineEdit, QComboBox, QTreeWidget, QTextEdit, QSpinBox { background: white; color: #172033; border: 1px solid #cbd5e1; border-radius: 5px; padding: 6px; selection-background-color: #bfdbfe; }
+QHeaderView::section { background: #e2e8f0; color: #334155; padding: 7px; border: 0; border-right: 1px solid #cbd5e1; } QProgressBar { background: white; border: 1px solid #cbd5e1; border-radius: 5px; height: 9px; } QProgressBar::chunk { background: #22c55e; border-radius: 4px; } QRadioButton { spacing: 7px; }
