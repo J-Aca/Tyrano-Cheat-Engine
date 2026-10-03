@@ -144,7 +144,7 @@ Tyrano-Cheat-Engine/
 
 ## Licencia y créditos
 
-El README original indica licencia MIT; consulta el archivo `LICENSE` de la distribución para los términos completos. El proyecto se atribuye a [J-Aca](https://github.com/J-Aca) y se basa en [Lucid Engine](https://github.com/Galactic647/Lucid-Engine), con modificaciones.
+Licencia MIT; consulta el archivo `LICENSE` de la distribución para los términos completos. El proyecto se atribuye a través de [J-Aca](https://github.com/J-Aca) y se basa en [Lucid Engine](https://github.com/Galactic647/Lucid-Engine), con modificaciones.
 
 ## Enlaces
 
