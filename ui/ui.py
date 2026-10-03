@@ -107,6 +107,7 @@ class InterfazJAca(QMainWindow):
         self.actionTheme = QAction(self)
         self.actionLanguage = QAction(self)
         self.actionSettings = QAction(self)
+        self.actionCustomTheme = QAction(self)
 
         self.menubar.addAction(
             self.menuFile.menuAction()
@@ -119,6 +120,7 @@ class InterfazJAca(QMainWindow):
         self.menuSettings.addAction(self.actionSettings)
         self.menuView.addAction(self.actionTheme)
         self.menuView.addAction(self.actionLanguage)
+        self.menuView.addAction(self.actionCustomTheme)
 
         self.menuFile.addAction(
             self.actionLaunch_Game
@@ -249,7 +251,7 @@ class InterfazJAca(QMainWindow):
 
         self.ScanButton = QPushButton()
         self.ClearButton = QPushButton()
-        self.UndoButton = QPushButton()
+        self.UndoButton = QPushButton()  # retained internally for compatibility; not shown
 
         self.ClearButton.setEnabled(False)
         self.UndoButton.setEnabled(False)
@@ -263,11 +265,6 @@ class InterfazJAca(QMainWindow):
             self.ClearButton,
             0,
             1,
-        )
-        buttons.addWidget(
-            self.UndoButton,
-            0,
-            2,
         )
 
         controls.addLayout(buttons)
@@ -549,10 +546,9 @@ class InterfazJAca(QMainWindow):
         )
 
         self.UnloadButton = QPushButton()
-
-        raw_layout.addWidget(
-            self.UnloadButton
-        )
+        self.ExportButton = QPushButton()
+        raw_layout.addWidget(self.ExportButton)
+        raw_layout.addWidget(self.UnloadButton)
 
         self.RawListWidget = CustomEditTreeWidget(
             [0]
@@ -585,12 +581,16 @@ class InterfazJAca(QMainWindow):
         tr = lambda en, es_text: es_text if es else en
         self.setWindowTitle("Tyrano Cheat Engine")
         self.menuFile.setTitle(tr("File", "Archivo")); self.menuSettings.setTitle(tr("Settings", "Configuración")); self.menuView.setTitle(tr("View", "Vista")); self.menuHelp.setTitle(tr("Help", "Ayuda"))
-        labels = [(self.actionLaunch_Game,"Launch Game...","Iniciar juego..."),(self.actionStop_Game,"Stop Game","Detener juego"),(self.actionSave_Logs,"Save Logs...","Guardar registros..."),(self.actionTheme,"Toggle light/dark theme","Cambiar tema claro/oscuro"),(self.actionLanguage,"Switch English / Spanish","Cambiar inglés / español"),(self.actionSettings,"Settings...","Configuración..."),(self.actionTutorial,"Tutorial / Help","Tutorial / Ayuda"),(self.actionAbout,"About","Acerca de")]
+        labels = [(self.actionLaunch_Game,"Launch Game...","Iniciar juego..."),(self.actionStop_Game,"Stop Game","Detener juego"),(self.actionSave_Logs,"Save Logs...","Guardar registros..."),(self.actionTheme,"Toggle light/dark theme","Cambiar tema claro/oscuro"),(self.actionLanguage,"Switch English / Spanish","Cambiar inglés / español"),(self.actionSettings,"Settings...","Configuración..."),(self.actionCustomTheme,"Load custom theme...","Cargar tema personalizado..."),(self.actionTutorial,"Tutorial / Help","Tutorial / Ayuda"),(self.actionAbout,"About","Acerca de")]
         for action,en,es_text in labels: action.setText(tr(en,es_text))
         self.InfoLabel.setText(tr("No game loaded","Ningún juego cargado"))
-        for widget,en,es_text in [(self.ScanButton,"Scan","Escanear"),(self.ClearButton,"Clear","Limpiar"),(self.UndoButton,"Rescan","Reescanear"),(self.SearchAndLabel,"and","y"),(self.SearchByLabel,"Scan by","Buscar por"),(self.ValueRadioButton,"Value","Valor"),(self.NameRadioButton,"Variable name","Nombre de variable"),(self.SearchTypeLabel,"Scan type","Tipo de escaneo"),(self.LoadButton,"Load raw list","Cargar lista"),(self.UnloadButton,"Unload","Descargar")]: widget.setText(tr(en,es_text))
+        for widget,en,es_text in [(self.ScanButton,"Scan","Escanear"),(self.ClearButton,"Clear","Limpiar"),(self.SearchAndLabel,"and","y"),(self.SearchByLabel,"Scan by","Buscar por"),(self.ValueRadioButton,"Value","Valor"),(self.NameRadioButton,"Variable name","Nombre de variable"),(self.SearchTypeLabel,"Scan type","Tipo de escaneo"),(self.LoadButton,"Import list","Importar lista"),(self.UnloadButton,"Clear list","Vaciar lista"),(self.ExportButton,"Export list","Exportar lista")]: widget.setText(tr(en,es_text))
+        old_scan_index = self.SearchTypeInput.currentIndex()
+        self.SearchTypeInput.blockSignals(True)
         self.SearchTypeInput.clear()
         for en,es_text in [("Exact value","Valor exacto"),("Bigger than...","Mayor que..."),("Smaller than...","Menor que..."),("Between...","Entre..."),("Unknown","Desconocido"),("Increased value","Valor aumentado"),("Increased by...","Aumentado en..."),("Decreased value","Valor reducido"),("Decreased by...","Reducido en..."),("Changed value","Valor cambiado"),("Unchanged value","Valor sin cambios"),("Ignore","Ignorar"),("Contains ...","Contiene..."),("Starts with...","Empieza con..."),("Ends with...","Termina con..."),("Regex","Expresión regular")]: self.SearchTypeInput.addItem(tr(en,es_text))
+        self.SearchTypeInput.setCurrentIndex(max(0, old_scan_index))
+        self.SearchTypeInput.blockSignals(False)
         self.FoundLabel.setText(tr("Found: 0","Encontrados: 0"))
         self.ResultTab.setHeaderLabels([tr("Variable","Variable"),tr("Value","Valor"),tr("Previous","Anterior"),tr("Path","Ruta")])
         self.ValueListWidget.setHeaderLabels([tr("Description","Descripción"),tr("Path","Ruta"),tr("Value","Valor")])
