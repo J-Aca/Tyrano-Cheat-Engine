@@ -13,10 +13,8 @@ DEFAULT_CONFIG = {
     "websocket": {
         "port": 9222,
     },
-    "app": {
-        "theme": "default-dark",
-        "language": "en",
-    },
+    "app": {"theme": "default-dark", "language": "en"},
+    "scan": {"timeout": 30, "root": "tf", "ignore_null": False, "ignore_readonly": False, "log_path": None},
 }
 
 
